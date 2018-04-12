@@ -1,31 +1,17 @@
 +++
-title = "About"
-date = "2014-04-09"
+title = "About CvilleRs"
+date = "2018-04-11"
 sidemenu = "true"
-description = "About me and this site"
+description = "Check us out!"
 +++
 
-Hugo is a static site engine written in Go.
+The Cville/UVa R meetup began in September 2014 as a the local R user group for the University of Virginia and Charlottesville area. Sponsored by the [UVA Library's Research Data Services](http://data.library.virginia.edu/), our goal is to support and share R experience and knowledge among users in the local community (and beyond).
 
+We're a collection of novices and experts, the universty-affilitated and community-focused, enthusiasts and researchers, and lifelong learners of many stripes. Come join us!
 
-It makes use of a variety of open source projects including:
+* [Sign up on our meetup page](https://www.meetup.com/UVa-R-Users-Group/)
+* [Read about our past meetups](https://clever-yonath-38f215.netlify.com/)
+* View our growing collection of resources (TBA)
+* Learn about our members' [projects](/projects/)
 
-* [Cobra](https://github.com/spf13/cobra)
-* [Viper](https://github.com/spf13/viper)
-* [J Walter Weatherman](https://github.com/spf13/jWalterWeatherman)
-* [Cast](https://github.com/spf13/cast)
-
-Learn more and contribute on [GitHub](https://github.com/spf13).
-
-## Setup
-
-Some fun facts about [Hugo](http://gohugo.io/):
-
-* Built in [Go](http://golang.org/)
-* Loosely inspired by [Jekyll](http://jekyllrb.com/)
-* Primarily developed by [spf13](http://spf13.com/) on the train while commuting to and from Manhattan.
-* Coded in [Vim](http://vim.org) using [spf13-vim](http://vim.spf13.com/)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/spf13/hugo/issues/new) or [ask me on Twitter](https://twitter.com/spf13).
-
-Thanks for reading!
+And feel free to contribute on [GitHub](https://github.com/UVa-R-Users-Group/meetup).
