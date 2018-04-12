@@ -1,4 +1,4 @@
-baseurl = "https://www.example.com/"
+baseurl = "/"
 languageCode = "en-us"
 title = "Cville UseRs"
 theme = "blackburn"
@@ -6,6 +6,7 @@ author = "The UseRs"
 copyright = "&copy; 2016. All rights reserved."
 canonifyurls = true
 paginate = 10
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files/", "_cache$"]
 
 [indexes]
   tag = "tags"
@@ -14,7 +15,7 @@ paginate = 10
 [params]
   # Shown in the home page
   subtitle = "A resource for past meetup materials"
-  brand = "Blackburn"
+  brand = "Cville UseRs"
   googleAnalytics = "Your Google Analytics tracking ID"
   disqus = "Your Disqus shortname"
   # CSS name for highlight.js
