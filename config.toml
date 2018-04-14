@@ -1,9 +1,9 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Cville UseRs"
+title = "Cville R users"
 theme = "blackburn"
-author = "The UseRs"
-copyright = "&copy; 2016. All rights reserved."
+author = "CvilleRs"
+copyright = "&copy; 2018. All rights reserved."
 canonifyurls = true
 paginate = 10
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files/", "_cache$"]
