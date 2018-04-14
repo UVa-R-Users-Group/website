@@ -34,6 +34,25 @@ We&amp;rsquo;ll start with creating a new site with a very basic template.</desc
     </item>
     
     <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Thu, 12 Apr 2018 15:48:05 -0400</pubDate>
+      
+      <guid>/projects/</guid>
+      <description>A place to link to or describe fun projects, packages, research, or more!</description>
+    </item>
+    
+    <item>
+      <title>About CvilleRs</title>
+      <link>/about/</link>
+      <pubDate>Wed, 11 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>The Cville/UVa R meetup began in September 2014 as a the local R user group for the University of Virginia and Charlottesville area. Sponsored by the UVA Library&amp;rsquo;s Research Data Services, our goal is to support and share R experience and knowledge among users in the local community (and beyond).
+We&amp;rsquo;re a collection of novices and experts, the universty-affilitated and community-focused, enthusiasts and researchers, and lifelong learners of many stripes. Come join us!</description>
+    </item>
+    
+    <item>
       <title>Hello R Markdown</title>
       <link>/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
@@ -42,19 +61,6 @@ We&amp;rsquo;ll start with creating a new site with a very basic template.</desc
       <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.
-Setup Some fun facts about Hugo:
- Built in Go Loosely inspired by Jekyll Primarily developed by spf13 on the train while commuting to and from Manhattan. Coded in Vim using spf13-vim  Have questions or suggestions?</description>
     </item>
     
     <item>

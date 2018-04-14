@@ -31,29 +31,29 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files/", "_cache$"]
     identifier = "home"
     url = "/"
   [[menu.main]]
-    name = "Posts"
-    pre = "<i class='fa fa-list fa-fw'></i>"
-    weight = 2
-    identifier = "post"
-    url = "/post/"
-  [[menu.main]]
-    name = "About"
+    name = "About CvilleRs"
     pre = "<i class='fa fa-user fa-fw'></i>"
-    weight = 3
+    weight = 2
     identifier = "about"
     url = "/about/"
   [[menu.main]]
-    name = "Contact"
-    pre = "<i class='fa fa-phone fa-fw'></i>"
+    name = "Archives"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 3
+    identifier = "post"
+    url = "/post/"
+  [[menu.main]]
+    name = "Projects"
+    pre = "<i class='fa fa-wrench fa-fw'></i>"
     weight = 4
-    url = "/contact/"
+    url = "/projects/"
 
 [social]
   # Link your social networking accouns to the side menu
   # by entering your username or ID.
-  twitter = "*"
-  facebook = "*"
-  instagram = "*"
+  #twitter = "*"
+  #facebook = "*"
+  #instagram = "*"
   github = "UVa-R-Users-Group"
-  stackoverflow = "*"
-  linkedin = "*"
+  #stackoverflow = "*"
+  #linkedin = "*"
