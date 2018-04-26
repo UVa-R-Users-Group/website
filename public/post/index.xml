@@ -7,65 +7,70 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2015 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Creating a New Theme</title>
-      <link>/post/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      <title>Social Network Analysis</title>
+      <link>/post/social-network-analysis/</link>
+      <pubDate>Tue, 21 Apr 2015 00:00:00 +0000</pubDate>
       
-      <guid>/post/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+      <guid>/post/social-network-analysis/</guid>
+      <description>This script, presented at the April 2015 Meetup, demonstrates how to carry out basic social network analysis (SNA) using the network and sna packages. Topics covered include preparing data for analysis, interpreting output, and generating social network graphs.
+The script assumes no prior knowledge of SNA but does assume a basic working knowledge of R. Most code is commented with an explanation of its purpose.
+After this demonstration, hopefully Meetup participants will have an understanding of how to begin and carry out a basic social network analysis in R.</description>
     </item>
     
     <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>/post/migrate-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      <title>Heat Maps</title>
+      <link>/post/heat-maps/</link>
+      <pubDate>Thu, 19 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>/post/migrate-from-jekyll/</guid>
-      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
-▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png  should become
-▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png  Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
+      <guid>/post/heat-maps/</guid>
+      <description>library(dplyr) # Data manipulation &amp;amp; magrittr pipe library(ggplot2) # General plotting library(NMF) # aheatmap() library(gplots) # heatmap.2() library(RColorBrewer) # Brewer palettes set.seed(123) ############################ # 2D histograms # ############################ # simulate data that consiststs of paired observations in two experiments covar_mat &amp;lt;- matrix(c(5, 4, 4, 5), ncol = 2) # Covariance matrix data &amp;lt;- MASS::mvrnorm(n = 10000, mu = c(0, 0), Sigma = covar_mat) %&amp;gt;% #Simulate correlated data rbind(matrix(rnorm(20000, sd = 0.</description>
     </item>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>caret: streamline the process of predictive modeling</title>
+      <link>/post/caret-streamline-the-process-of-predictive-modeling/</link>
+      <pubDate>Thu, 19 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <guid>/post/caret-streamline-the-process-of-predictive-modeling/</guid>
+      <description>This demonstration of the caret package was given by Mark Lawson, bioinformatician at Hemoshear LLC, Charlottesville VA. The caret package (short for Classification And REgression Training) is a set of functions that streamline the process for creating predictive models. The package contains tools for data splitting, pre-processing, feature selection, model tuning using resampling, and variable importance estimation. Read more about the caret package here.
+This demonstration uses the caret package to split data into training and testing sets, and run repeated cross-validation to train random forest and penalized logistic regression models for classifying Fisher’s iris data.</description>
     </item>
     
     <item>
-      <title>(Hu)go Template Primer</title>
-      <link>/post/goisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>Web Scraping</title>
+      <link>/post/web-scraping/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>/post/goisforlovers/</guid>
-      <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
-This document is a brief primer on using go templates.</description>
+      <guid>/post/web-scraping/</guid>
+      <description>Web Scraping Take data formatted for display in a web browser and reformat for analysis.
+It helps to know…
+ a little about HTML and XML how to manipulate strings in R a little something about regular expressions how to write a function and do some basic conditional looping  Web scraping is mostly cleaning data.
+ Strategy Every web page is different, but a basic procedure in R (for a single web page) is as follows:</description>
     </item>
     
     <item>
-      <title>Getting Started with Hugo</title>
-      <link>/post/hugoisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>Kickoff Meetup: dplyr demo</title>
+      <link>/post/kickoff-meetup-dplyr-demo/</link>
+      <pubDate>Mon, 08 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>/post/hugoisforlovers/</guid>
-      <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at installing hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
-Follow the following steps:
- Clone the hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+      <guid>/post/kickoff-meetup-dplyr-demo/</guid>
+      <description>This is an R script ported from here.
+# Load packages library(&amp;quot;dplyr&amp;quot;) library(&amp;quot;ggplot2&amp;quot;) library(&amp;quot;nycflights13&amp;quot;) library(&amp;quot;lubridate&amp;quot;) # it&amp;#39;s a data.frame, but also a tbl_df. # doesn&amp;#39;t print entire thing to screen. flights ## # A tibble: 336,776 x 19 ## year month day dep_time sched_dep_time dep_delay arr_time ## &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; ## 1 2013 1 1 517 515 2 830 ## 2 2013 1 1 533 529 4 850 ## 3 2013 1 1 542 540 2 923 ## 4 2013 1 1 544 545 -1 1004 ## 5 2013 1 1 554 600 -6 812 ## 6 2013 1 1 554 558 -4 740 ## 7 2013 1 1 555 600 -5 913 ## 8 2013 1 1 557 600 -3 709 ## 9 2013 1 1 557 600 -3 838 ## 10 2013 1 1 558 600 -2 753 ## # .</description>
+    </item>
+    
+    <item>
+      <title>texreg: converting model output to Latex or HTML</title>
+      <link>/post/texreg-converting-model-output-to-latex-or-html/</link>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/texreg-converting-model-output-to-latex-or-html/</guid>
+      <description>In the first example we use college admissions data to model gpa as a function of class rank, act score and year of admission. Three linear models are fit and summarized in a single table using the texreg functions screenreg, texreg and htmlreg. These functions create nicely formatted tables for the R console, LaTeX, and HTML, respectively. The second example uses NRC Data on research-doctorate programs to do beta regressions of PhD completion rates on Faculty Publications, Citation Rate, Faculty Grants and Institution type.</description>
     </item>
     
   </channel>

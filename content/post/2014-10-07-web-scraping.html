@@ -1,0 +1,209 @@
+---
+title: Web Scraping
+author: Clay Ford
+date: '2014-10-07'
+slug: web-scraping
+categories:
+  - web scraping
+tags:
+  - XML
+  - stringr
+  - lubridate
+  - dplyr
+---
+
+
+
+<div id="web-scraping" class="section level2">
+<h2>Web Scraping</h2>
+<p>Take data formatted for display in a web browser and reformat for analysis.</p>
+<p>It helps to know…</p>
+<ul>
+<li>a little about HTML and XML</li>
+<li>how to manipulate strings in R</li>
+<li>a little something about regular expressions</li>
+<li>how to write a function and do some basic conditional looping</li>
+</ul>
+<p>Web scraping is mostly cleaning data.</p>
+</div>
+<div id="strategy" class="section level2">
+<h2>Strategy</h2>
+<p>Every web page is different, but a basic procedure in R (<em>for a single web page</em>) is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>View the source code; get familiar with the tags surrounding the data you want</li>
+<li>Read web page source code into R using <code>readLines</code> or functions from the <code>XML</code> package (or something else?)</li>
+<li>clean the data in R</li>
+</ol>
+<p>Steps 1 and 2 are usually easy. Step 3 takes time.</p>
+<p>What about multiple web pages? Loop through steps 2 and 3.</p>
+</div>
+<div id="isnt-there-a-package-for-this-sort-of-thing" class="section level2">
+<h2>Isn’t there a package for this sort of thing?</h2>
+<p>It looks like there will be.</p>
+<p><code>rvest</code> will help you scrape information from web pages. It is designed to work with magrittr to make it easy to express common web scraping tasks.</p>
+<p>Not yet on CRAN. But available on GitHub:<br />
+<a href="https://github.com/hadley/rvest" class="uri">https://github.com/hadley/rvest</a></p>
+</div>
+<div id="example-1-imdb-top-250" class="section level2">
+<h2>Example #1: IMDB Top 250</h2>
+<pre class="r"><code># URL: http://www.imdb.com/chart/top?ref_=nv_ch_250_4
+
+library(XML)
+library(stringr)
+library(lubridate)
+library(dplyr)
+
+# read the web page source code
+movies &lt;- readLines(&quot;http://www.imdb.com/chart/top?ref_=nv_ch_250_4&quot;, warn=FALSE)
+
+# web scraping complete!
+# let the clean up begin...
+
+# find the index numbers that mark the begin and end of table
+start &lt;- grep(&quot;table class=\&quot;chart\&quot;&quot;, movies)
+end &lt;- grep(&quot;The formula for calculating the&quot;, movies)
+movies250 &lt;- movies[start:(end-3)]
+
+# starts and ends with table tags
+head(movies250, n=1)
+tail(movies250, n=1)
+
+# use readHTMLTable() from XML package to convert HTML table to data frame
+imdb250 &lt;- readHTMLTable(movies250)
+
+# extract the data frame from the first list element
+imdb250 &lt;- imdb250[[1]]
+
+# keep columns 2 and 3
+imdb250 &lt;- imdb250[,c(2,3)]
+
+# fix the column names so they don&#39;t have spaces
+names(imdb250) &lt;- c(&quot;Title&quot;, &quot;Rating&quot;)
+
+# make rating numeric
+imdb250$Rating &lt;- as.numeric(as.character(imdb250$Rating))
+
+# add a column for rank
+imdb250$Rank &lt;- as.numeric(row.names(imdb250))
+
+# Title column needs work
+imdb250$Title
+
+# extract title using str_extract() from stringr
+title &lt;- str_extract(imdb250$Title, pattern = &quot;\n.*\n&quot;)
+title &lt;- gsub(&quot;\n&quot;,&quot;&quot;,title) # find and replace
+title &lt;- str_trim(title) # remove leading and trailing spaces
+
+# extract year
+year &lt;- str_extract(imdb250$Title, pattern = &quot;\\([0-9]{4}\\)&quot;)
+year &lt;- gsub(&quot;\\(|\\)&quot;,&quot;&quot;,year)
+imdb250$Year &lt;- as.numeric(year)
+
+imdb250$Title &lt;- title
+# Done!
+
+# see which years have the most movies on the list
+imdb250 %&gt;% 
+  group_by(Year) %&gt;%
+  summarise(Total=n()) %&gt;%
+  arrange(desc(Total)) %&gt;%
+  head(10)
+
+# see the 1995 movies
+imdb250 %&gt;% 
+  filter(Year==1995)
+  
+rm(movies, movies250, end, start, title, year)</code></pre>
+</div>
+<div id="example-2-craigslist" class="section level2">
+<h2>Example #2: Craigslist</h2>
+<pre class="r"><code>###########################################################################
+#
+# WARNING: Results you&#39;ll get from scraping craigslist will differ every 
+# day, and can potentially return unsavory content.
+#
+###########################################################################
+
+
+
+# https://charlottesville.craigslist.org/search/cba
+
+dat &lt;- readLines(&quot;https://charlottesville.craigslist.org/search/cba?s=0&amp;&quot;, warn=FALSE)
+
+# function to prep craigslist data
+# dat is data vector obtained from readLines()
+CLPrep &lt;- function(dat){
+  # generate an R structure representing the HTML structure
+  # htmlTreeParse() is in XML package;
+  # useInternalNodes = TRUE so I can use XPath expressions
+  raw2 &lt;- htmlTreeParse(dat, useInternalNodes = TRUE)
+  
+  # raw2 is an XML-like structure with nodes
+  # to see all the nodes: unlist(xpathApply(raw2, &quot;//*&quot;, xmlName))
+  
+  # XPath uses path expressions to select nodes or node-sets in an XML document
+  
+  # the items are in nodes called &quot;a&quot; with a class attribute equal to &quot;hdrlnk&quot;
+  item &lt;- xpathApply(raw2,&quot;//a[@class=&#39;hdrlnk&#39;]&quot;, xmlValue)
+  item &lt;- unlist(item)
+  
+  # date listed in nodes called &quot;time&quot; with a class attribute equal to &quot;date&quot;
+  date.posted &lt;- xpathApply(raw2,&quot;//time&quot;, xmlGetAttr, &quot;datetime&quot;)
+  date.posted &lt;- unlist(date.posted)
+  # ymd_hm() is from the lubridate package
+  # use Sys.timezone() to get time zone
+  date.posted &lt;- ymd_hm(date.posted, tz=&quot;America/New_York&quot;) 
+  
+  # item has the price listed twice or not all
+  # first need to get element from dat that contains prices
+  i &lt;- grep(&quot;class=\&quot;price\&quot;&quot;, dat)
+  tmp &lt;- dat[i]
+  # Split text at &quot;&lt;/p&gt;&quot; since every item ends with that tag
+  items &lt;- strsplit(tmp, split = &quot;&lt;/p&gt;&quot;)
+  items &lt;- unlist(items)
+  
+  # get index number of items that have prices
+  ind &lt;- grep(&quot;class=\&quot;price\&quot;&quot;, items)
+  
+  # price listed in nodes called &quot;span&quot; with a class attribute equal to &quot;price&quot;
+  prices &lt;- xpathApply(raw2,&quot;//span[@class=&#39;price&#39;]&quot;, xmlValue)
+  prices &lt;- unlist(prices)
+  
+  # keep every other price (remove dupes)
+  prices &lt;- prices[seq_along(prices) %% 2 == 1] 
+  prices &lt;- as.numeric(gsub(&quot;\\$&quot;,&quot;&quot;,prices))
+  
+  # fill in prices per ind (ie, row numbers which had prices)
+  price &lt;- rep(NA,length(item))
+  price[ind] &lt;- prices
+  
+  # create data frame
+  data.frame(item, date.posted, price, stringsAsFactors = F)
+
+}
+
+# Note URL increments by 100:
+# https://charlottesville.craigslist.org/search/cba?s=0&amp;
+# https://charlottesville.craigslist.org/search/cba?s=100&amp;
+# https://charlottesville.craigslist.org/search/cba?s=200&amp;
+# increment URLs by 100; stop if code contains &quot;no results&quot;
+
+# Use the CLPrep function in a repeating loop to scrape successive pages of 
+# listsings. The loop breaks when it hits a page that contains the phrase &quot;no
+# results&quot;.
+
+cl.out &lt;- c() # create an empty object to store results
+j &lt;- 0 # for URL
+repeat{
+  raw &lt;- readLines(paste0(&quot;https://charlottesville.craigslist.org/search/cba?s=&quot;,j,&quot;&amp;&quot;), warn=F)
+  if (any(grepl(pattern = &quot;no results&quot;, x = raw))) break else {
+    cl.out &lt;- rbind(cl.out,CLPrep(dat=raw))
+    j &lt;- j + 100
+  }
+}
+
+# the result of the above loop is a data.frame called &quot;cl.out&quot; that
+# contains all craigslist collectibles spanning multiple pages.
+
+summary(cl.out$price)</code></pre>
+</div>

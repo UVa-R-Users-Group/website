@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  <title>texreg: converting model output to Latex or HTML &middot; Cville R users</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Cville UseRs</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About CvilleRs</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Archives</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/projects/"><i class='fa fa-wrench fa-fw'></i>Projects</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/UVa-R-Users-Group" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2018. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>texreg: converting model output to Latex or HTML</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>25 Apr 2014</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/texreg">texreg</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <p>In the first example we use college admissions data to model gpa as a function of class rank, act score and year of admission. Three linear models are fit and summarized in a single table using the texreg functions screenreg, texreg and htmlreg. These functions create nicely formatted tables for the R console, LaTeX, and HTML, respectively. The second example uses NRC Data on research-doctorate programs to do beta regressions of PhD completion rates on Faculty Publications, Citation Rate, Faculty Grants and Institution type. This example serves to show how texreg works for other modelling functions in addition to lm.</p>
+<p>After this demonstration, hopefully Meetup participants will know more about using the texreg package to assist in preparing modelling output for publication or presentation.</p>
+<pre class="r"><code>## Publication-quality tables of model output from R
+## texreg: Conversion of R regression output to LaTeX or HTML tables
+
+# install.packages(&quot;texreg&quot;)
+library(texreg)
+
+# Load some data
+admissions &lt;- read.csv(&quot;http://people.virginia.edu/~mpc8t/admissions.csv&quot;, header=T)
+
+str(admissions)
+summary(admissions)
+admissions$year &lt;- as.factor(admissions$year)
+
+# Generate some models
+gpa_all &lt;- lm(gpa ~ rank + act + year, data=admissions)
+gpa_red &lt;- lm(gpa ~ rank + act, data=admissions)
+gpa_int &lt;- lm(gpa ~ rank*act, data=admissions)
+
+# Make a table
+screenreg(list(gpa_all, gpa_red, gpa_int))
+
+# Make it nicer
+screenreg(list(gpa_all, gpa_red, gpa_int), 
+          omit.coef=&quot;year&quot;,
+          custom.model.names=c(&quot;With Year Effects&quot;, &quot;No Year Effects&quot;, &quot;Interaction&quot;),
+          custom.coef.names=c(&quot;Intercept&quot;, &quot;HS Rank&quot;, &quot;ACT Score&quot;, NA, NA, NA, NA, &quot;Rank * ACT&quot;),
+          include.rsquared=FALSE, custom.gof.names=c(&quot;adjR^2&quot;, &quot;N&quot;),
+          stars=c(0.01, 0.05), custom.note=&quot;%stars. Year effects not significant.&quot;)
+
+# Output it as LaTeX table
+texreg(list(gpa_all, gpa_red, gpa_int))
+
+texreg(list(gpa_all, gpa_red, gpa_int), 
+          omit.coef=&quot;year&quot;,
+          custom.model.names=c(&quot;With Year Effects&quot;, &quot;No Year Effects&quot;, &quot;Interaction&quot;),
+          custom.coef.names=c(&quot;Intercept&quot;, &quot;HS Rank&quot;, &quot;ACT Score&quot;, NA, NA, NA, NA, &quot;Rank * ACT&quot;),
+          include.rsquared=FALSE, custom.gof.names=c(&quot;adj$R^2$&quot;, &quot;N&quot;),
+          stars=c(0.01, 0.05), custom.note=&quot;%stars. Year effects not significant.&quot;,
+          caption=&quot;First-Year GPA by HS Rank and ACT Score&quot;)
+
+# Output as html file (can be read into Word, or used in markdown)
+htmlreg(list(gpa_all, gpa_red, gpa_int))
+
+htmlreg(list(gpa_all, gpa_red, gpa_int), 
+       file=&quot;gpaTable.doc&quot;, omit.coef=&quot;year&quot;,
+       custom.model.names=c(&quot;With Year Effects&quot;, &quot;No Year Effects&quot;, &quot;Interaction&quot;),
+       custom.coef.names=c(&quot;Intercept&quot;, &quot;HS Rank&quot;, &quot;ACT Score&quot;, NA, NA, NA, NA, &quot;Rank * ACT&quot;),
+       include.rsquared=FALSE, custom.gof.names=c(&quot;adjR^2&quot;, &quot;N&quot;),      
+       stars=c(0.01, 0.05), custom.note=&quot;%stars. Year effects not significant.&quot;, 
+       caption=&quot;First-Year GPA by HS Rank and ACT Score&quot;, caption.above=TRUE)
+
+# Coefficient plot
+plotreg(list(gpa_all, gpa_red, gpa_int))
+plotreg(list(gpa_red, gpa_int), omit.coef=&quot;Inter&quot;)
+                
+plotreg(gpa_int, omit.coef=&quot;Inter&quot;,,
+        custom.coef.names=c(&quot;Intercept&quot;, &quot;HS Rank&quot;, &quot;ACT Score&quot;, &quot;Rank * ACT&quot;),
+        main=&quot;Coefficient Plot: First-Year GPA&quot;)
+
+# coefplot in package arm is better
+library(arm)
+par(mfrow = c(1, 1))
+coefplot(gpa_int)
+coefplot(gpa_int,xlim=c(-.1,.05), frame.plot=T) # make axis cross zero/null
+coefplot(gpa_red, add=T, col=&quot;gray&quot;)
+# A new package, &quot;coefplot&quot; builds on ggplot2
+
+# Highly customizable and supports wide set of models
+?extract
+
+# Other useful packages include:
+#   xtable: particularly good for tables of summary statistics
+#   stargazer: summary tables and model output, may be catching up
+
+
+#################
+
+## One more example: Ph.D. completion rates
+# Load the data: NRC Data on Research-Doctorate Programs
+# http://www.nap.edu/rdp/index.html??record_id=12850
+nrc &lt;- read.csv(&quot;http://people.virginia.edu/~mpc8t/nrcGradAssess2010.csv&quot;, header=T, 
+                na.strings=c(&quot;&quot;, &quot;N/D&quot;, &quot;NA&quot;, &quot;*&quot;, &quot;N/R&quot;),
+                as.is=c(&quot;institution&quot;))
+
+levels(nrc$fieldBroad)
+
+# Model completion rate for each field
+model.sbe &lt;- lm(compRate ~ pubFac + citePub + facGrant + fySupport + instType, 
+                data=subset(nrc, subset= fieldBroad==&quot;Social and Behavioral Sciences&quot;))
+model.pms &lt;- lm(compRate ~ pubFac + citePub + facGrant + fySupport + instType, 
+                data=subset(nrc, subset= fieldBroad==&quot;Physical and Mathematical Sciences&quot;))
+# citePub is entirely missing for humanities
+model.hum &lt;- lm(compRate ~ pubFac + facGrant + fySupport + instType, 
+                data=subset(nrc, subset= fieldBroad==&quot;Humanities&quot;))
+model.engr &lt;- lm(compRate ~ pubFac + citePub + facGrant + fySupport + instType, 
+                 data=subset(nrc, subset= fieldBroad==&quot;Engineering&quot;))
+model.bhs &lt;- lm(compRate ~ pubFac + citePub + facGrant + fySupport + instType, 
+                data=subset(nrc, subset= fieldBroad==&quot;Biological and Health Sciences&quot;))
+model.ags &lt;- lm(compRate ~ pubFac + citePub + facGrant + fySupport + instType, 
+                data=subset(nrc, subset= fieldBroad==&quot;Agricultural Sciences&quot;))
+
+# Make a table
+screenreg(list(model.sbe, model.pms, model.hum, model.engr, model.bhs, model.ags), 
+          custom.model.names=c(&quot;Social&quot;, &quot;Physical&quot;, &quot;Humanities&quot;, &quot;Engineering&quot;, 
+                               &quot;Bio/Health&quot;, &quot;Agricultural&quot;),               
+          custom.coef.names=c(&quot;Intercept&quot;, &quot;Faculty Publications&quot;, &quot;Citation Rate&quot;, 
+                              &quot;Faculty Grants&quot;, &quot;First Year Support&quot;, &quot;Public University&quot;),                               
+          include.rsquared=F)
+
+# Beta regression (for proportions data, if you prefer)
+library(betareg)
+nrc$compRate2 &lt;- ifelse(nrc$compRate==0,0.01,nrc$compRate)
+nrc$compRate2 &lt;- ifelse(nrc$compRate==1,0.99,nrc$compRate2)
+beta.sbe &lt;- betareg(compRate2 ~ pubFac + citePub + facGrant + fySupport + instType, 
+                    data=subset(nrc, subset= fieldBroad==&quot;Social and Behavioral Sciences&quot;))
+beta.pms &lt;- betareg(compRate2 ~ pubFac + citePub + facGrant + fySupport + instType, 
+                    data=subset(nrc, subset= fieldBroad==&quot;Physical and Mathematical Sciences&quot;))
+# citePub is entirely missing for humanities
+beta.hum &lt;- betareg(compRate2 ~ pubFac + facGrant + fySupport + instType, 
+                    data=subset(nrc, subset= fieldBroad==&quot;Humanities&quot;))
+beta.engr &lt;- betareg(compRate2 ~ pubFac + citePub + facGrant + fySupport + instType, 
+                     data=subset(nrc, subset= fieldBroad==&quot;Engineering&quot;))
+beta.bhs &lt;- betareg(compRate2 ~ pubFac + citePub + facGrant + fySupport + instType, 
+                    data=subset(nrc, subset= fieldBroad==&quot;Biological and Health Sciences&quot;))
+beta.ags &lt;- betareg(compRate2 ~ pubFac + citePub + facGrant + fySupport + instType, 
+                    data=subset(nrc, subset= fieldBroad==&quot;Agricultural Sciences&quot;))
+
+screenreg(list(beta.sbe, beta.pms, beta.hum, beta.engr, beta.bhs, beta.ags), 
+          custom.model.names=c(&quot;Social&quot;, &quot;Physical&quot;, &quot;Humanities&quot;, &quot;Engineering&quot;, &quot;Bio/Health&quot;, &quot;Agricultural&quot;),               
+          custom.coef.names=c(&quot;Intercept&quot;, &quot;Faculty Publications&quot;, 
+                              &quot;Citation Rate&quot;, &quot;Faculty Grants&quot;, 
+                              &quot;First Year Support&quot;, &quot;Public University&quot;, &quot;Precision&quot;))</code></pre>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/kickoff-meetup-dplyr-demo/">Kickoff Meetup: dplyr demo</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/kickoff-meetup-dplyr-demo/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>
+

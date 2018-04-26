@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  <title>Web Scraping &middot; Cville R users</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Cville UseRs</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About CvilleRs</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Archives</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/projects/"><i class='fa fa-wrench fa-fw'></i>Projects</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/UVa-R-Users-Group" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2018. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Web Scraping</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>07 Oct 2014</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/xml">XML</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/stringr">stringr</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/lubridate">lubridate</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/dplyr">dplyr</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="web-scraping" class="section level2">
+<h2>Web Scraping</h2>
+<p>Take data formatted for display in a web browser and reformat for analysis.</p>
+<p>It helps to know…</p>
+<ul>
+<li>a little about HTML and XML</li>
+<li>how to manipulate strings in R</li>
+<li>a little something about regular expressions</li>
+<li>how to write a function and do some basic conditional looping</li>
+</ul>
+<p>Web scraping is mostly cleaning data.</p>
+</div>
+<div id="strategy" class="section level2">
+<h2>Strategy</h2>
+<p>Every web page is different, but a basic procedure in R (<em>for a single web page</em>) is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>View the source code; get familiar with the tags surrounding the data you want</li>
+<li>Read web page source code into R using <code>readLines</code> or functions from the <code>XML</code> package (or something else?)</li>
+<li>clean the data in R</li>
+</ol>
+<p>Steps 1 and 2 are usually easy. Step 3 takes time.</p>
+<p>What about multiple web pages? Loop through steps 2 and 3.</p>
+</div>
+<div id="isnt-there-a-package-for-this-sort-of-thing" class="section level2">
+<h2>Isn’t there a package for this sort of thing?</h2>
+<p>It looks like there will be.</p>
+<p><code>rvest</code> will help you scrape information from web pages. It is designed to work with magrittr to make it easy to express common web scraping tasks.</p>
+<p>Not yet on CRAN. But available on GitHub:<br />
+<a href="https://github.com/hadley/rvest" class="uri">https://github.com/hadley/rvest</a></p>
+</div>
+<div id="example-1-imdb-top-250" class="section level2">
+<h2>Example #1: IMDB Top 250</h2>
+<pre class="r"><code># URL: http://www.imdb.com/chart/top?ref_=nv_ch_250_4
+
+library(XML)
+library(stringr)
+library(lubridate)
+library(dplyr)
+
+# read the web page source code
+movies &lt;- readLines(&quot;http://www.imdb.com/chart/top?ref_=nv_ch_250_4&quot;, warn=FALSE)
+
+# web scraping complete!
+# let the clean up begin...
+
+# find the index numbers that mark the begin and end of table
+start &lt;- grep(&quot;table class=\&quot;chart\&quot;&quot;, movies)
+end &lt;- grep(&quot;The formula for calculating the&quot;, movies)
+movies250 &lt;- movies[start:(end-3)]
+
+# starts and ends with table tags
+head(movies250, n=1)
+tail(movies250, n=1)
+
+# use readHTMLTable() from XML package to convert HTML table to data frame
+imdb250 &lt;- readHTMLTable(movies250)
+
+# extract the data frame from the first list element
+imdb250 &lt;- imdb250[[1]]
+
+# keep columns 2 and 3
+imdb250 &lt;- imdb250[,c(2,3)]
+
+# fix the column names so they don&#39;t have spaces
+names(imdb250) &lt;- c(&quot;Title&quot;, &quot;Rating&quot;)
+
+# make rating numeric
+imdb250$Rating &lt;- as.numeric(as.character(imdb250$Rating))
+
+# add a column for rank
+imdb250$Rank &lt;- as.numeric(row.names(imdb250))
+
+# Title column needs work
+imdb250$Title
+
+# extract title using str_extract() from stringr
+title &lt;- str_extract(imdb250$Title, pattern = &quot;\n.*\n&quot;)
+title &lt;- gsub(&quot;\n&quot;,&quot;&quot;,title) # find and replace
+title &lt;- str_trim(title) # remove leading and trailing spaces
+
+# extract year
+year &lt;- str_extract(imdb250$Title, pattern = &quot;\\([0-9]{4}\\)&quot;)
+year &lt;- gsub(&quot;\\(|\\)&quot;,&quot;&quot;,year)
+imdb250$Year &lt;- as.numeric(year)
+
+imdb250$Title &lt;- title
+# Done!
+
+# see which years have the most movies on the list
+imdb250 %&gt;% 
+  group_by(Year) %&gt;%
+  summarise(Total=n()) %&gt;%
+  arrange(desc(Total)) %&gt;%
+  head(10)
+
+# see the 1995 movies
+imdb250 %&gt;% 
+  filter(Year==1995)
+  
+rm(movies, movies250, end, start, title, year)</code></pre>
+</div>
+<div id="example-2-craigslist" class="section level2">
+<h2>Example #2: Craigslist</h2>
+<pre class="r"><code>###########################################################################
+#
+# WARNING: Results you&#39;ll get from scraping craigslist will differ every 
+# day, and can potentially return unsavory content.
+#
+###########################################################################
+
+
+
+# https://charlottesville.craigslist.org/search/cba
+
+dat &lt;- readLines(&quot;https://charlottesville.craigslist.org/search/cba?s=0&amp;&quot;, warn=FALSE)
+
+# function to prep craigslist data
+# dat is data vector obtained from readLines()
+CLPrep &lt;- function(dat){
+  # generate an R structure representing the HTML structure
+  # htmlTreeParse() is in XML package;
+  # useInternalNodes = TRUE so I can use XPath expressions
+  raw2 &lt;- htmlTreeParse(dat, useInternalNodes = TRUE)
+  
+  # raw2 is an XML-like structure with nodes
+  # to see all the nodes: unlist(xpathApply(raw2, &quot;//*&quot;, xmlName))
+  
+  # XPath uses path expressions to select nodes or node-sets in an XML document
+  
+  # the items are in nodes called &quot;a&quot; with a class attribute equal to &quot;hdrlnk&quot;
+  item &lt;- xpathApply(raw2,&quot;//a[@class=&#39;hdrlnk&#39;]&quot;, xmlValue)
+  item &lt;- unlist(item)
+  
+  # date listed in nodes called &quot;time&quot; with a class attribute equal to &quot;date&quot;
+  date.posted &lt;- xpathApply(raw2,&quot;//time&quot;, xmlGetAttr, &quot;datetime&quot;)
+  date.posted &lt;- unlist(date.posted)
+  # ymd_hm() is from the lubridate package
+  # use Sys.timezone() to get time zone
+  date.posted &lt;- ymd_hm(date.posted, tz=&quot;America/New_York&quot;) 
+  
+  # item has the price listed twice or not all
+  # first need to get element from dat that contains prices
+  i &lt;- grep(&quot;class=\&quot;price\&quot;&quot;, dat)
+  tmp &lt;- dat[i]
+  # Split text at &quot;&lt;/p&gt;&quot; since every item ends with that tag
+  items &lt;- strsplit(tmp, split = &quot;&lt;/p&gt;&quot;)
+  items &lt;- unlist(items)
+  
+  # get index number of items that have prices
+  ind &lt;- grep(&quot;class=\&quot;price\&quot;&quot;, items)
+  
+  # price listed in nodes called &quot;span&quot; with a class attribute equal to &quot;price&quot;
+  prices &lt;- xpathApply(raw2,&quot;//span[@class=&#39;price&#39;]&quot;, xmlValue)
+  prices &lt;- unlist(prices)
+  
+  # keep every other price (remove dupes)
+  prices &lt;- prices[seq_along(prices) %% 2 == 1] 
+  prices &lt;- as.numeric(gsub(&quot;\\$&quot;,&quot;&quot;,prices))
+  
+  # fill in prices per ind (ie, row numbers which had prices)
+  price &lt;- rep(NA,length(item))
+  price[ind] &lt;- prices
+  
+  # create data frame
+  data.frame(item, date.posted, price, stringsAsFactors = F)
+
+}
+
+# Note URL increments by 100:
+# https://charlottesville.craigslist.org/search/cba?s=0&amp;
+# https://charlottesville.craigslist.org/search/cba?s=100&amp;
+# https://charlottesville.craigslist.org/search/cba?s=200&amp;
+# increment URLs by 100; stop if code contains &quot;no results&quot;
+
+# Use the CLPrep function in a repeating loop to scrape successive pages of 
+# listsings. The loop breaks when it hits a page that contains the phrase &quot;no
+# results&quot;.
+
+cl.out &lt;- c() # create an empty object to store results
+j &lt;- 0 # for URL
+repeat{
+  raw &lt;- readLines(paste0(&quot;https://charlottesville.craigslist.org/search/cba?s=&quot;,j,&quot;&amp;&quot;), warn=F)
+  if (any(grepl(pattern = &quot;no results&quot;, x = raw))) break else {
+    cl.out &lt;- rbind(cl.out,CLPrep(dat=raw))
+    j &lt;- j + 100
+  }
+}
+
+# the result of the above loop is a data.frame called &quot;cl.out&quot; that
+# contains all craigslist collectibles spanning multiple pages.
+
+summary(cl.out$price)</code></pre>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/kickoff-meetup-dplyr-demo/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/kickoff-meetup-dplyr-demo/">Kickoff Meetup: dplyr demo</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/caret-streamline-the-process-of-predictive-modeling/">caret: streamline the process of predictive modeling</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/caret-streamline-the-process-of-predictive-modeling/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>
+

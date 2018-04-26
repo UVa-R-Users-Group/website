@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.30.2" />
+
+  <title>caret: streamline the process of predictive modeling &middot; Cville R users</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Cville UseRs</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About CvilleRs</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Archives</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/projects/"><i class='fa fa-wrench fa-fw'></i>Projects</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/UVa-R-Users-Group" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2018. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>caret: streamline the process of predictive modeling</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>19 Feb 2015</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  
+
+</div>
+
+  <p>This demonstration of the caret package was given by Mark Lawson, bioinformatician at Hemoshear LLC, Charlottesville VA. The caret package (short for Classification And REgression Training) is a set of functions that streamline the process for creating predictive models. The package contains tools for data splitting, pre-processing, feature selection, model tuning using resampling, and variable importance estimation. Read more about the caret package here.</p>
+<p>This demonstration uses the caret package to split data into training and testing sets, and run repeated cross-validation to train random forest and penalized logistic regression models for classifying Fisher’s iris data.</p>
+<pre class="r"><code>library(caret)</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre class="r"><code>set.seed(42)
+
+# The iris dataset
+data(iris)
+
+head(iris)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<pre class="r"><code>summary(iris)</code></pre>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+<pre class="r"><code># look at the data
+featurePlot(x = iris[, 1:4],
+            y = iris$Species,
+            plot = &quot;pairs&quot;,
+            ## Add a key at the top
+            auto.key = list(columns = 3))</code></pre>
+<p><img src="/post/2015-02-19-caret-streamline-the-process-of-predictive-modeling_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code># seperate train and test
+trainIndex &lt;- createDataPartition(iris$Species,   # data labels
+                                  p = .7,         # percentage used for training
+                                  list = FALSE,   # return matrix instead of list
+                                  times = 1)      # how many slices?
+head(trainIndex)</code></pre>
+<pre><code>##      Resample1
+## [1,]         1
+## [2,]         3
+## [3,]         4
+## [4,]         5
+## [5,]         6
+## [6,]         7</code></pre>
+<pre class="r"><code># training data
+train_data &lt;- iris[trainIndex,1:4]
+train_labels &lt;- iris[trainIndex,5]
+
+# test data
+test_data &lt;- iris[-trainIndex,1:4]
+test_labels &lt;- iris[-trainIndex,5]
+
+table(train_labels)</code></pre>
+<pre><code>## train_labels
+##     setosa versicolor  virginica 
+##         35         35         35</code></pre>
+<pre class="r"><code>table(test_labels)# pre process the data</code></pre>
+<pre><code>## test_labels
+##     setosa versicolor  virginica 
+##         15         15         15</code></pre>
+<pre class="r"><code>preprocess_methods &lt;- c(&quot;center&quot;, &quot;scale&quot;)
+
+# determine transformation values
+preprocess &lt;- preProcess(train_data,
+                         method=preprocess_methods)
+help(preProcess)
+
+# apply transformation values
+train_data.pre &lt;- predict(preprocess, train_data)
+test_data.pre &lt;- predict(preprocess, test_data)
+
+summary(train_data)</code></pre>
+<pre><code>##   Sepal.Length    Sepal.Width    Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.20   Min.   :1.100   Min.   :0.100  
+##  1st Qu.:5.200   1st Qu.:2.80   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.700   Median :3.00   Median :4.200   Median :1.300  
+##  Mean   :5.821   Mean   :3.07   Mean   :3.748   Mean   :1.202  
+##  3rd Qu.:6.400   3rd Qu.:3.30   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.700   Max.   :4.40   Max.   :6.900   Max.   :2.500</code></pre>
+<pre class="r"><code>summary(train_data.pre)</code></pre>
+<pre><code>##   Sepal.Length      Sepal.Width       Petal.Length      Petal.Width     
+##  Min.   :-1.9887   Min.   :-2.0331   Min.   :-1.5096   Min.   :-1.4469  
+##  1st Qu.:-0.8119   1st Qu.:-0.6302   1st Qu.:-1.2245   1st Qu.:-1.1843  
+##  Median :-0.1581   Median :-0.1626   Median : 0.2579   Median : 0.1288  
+##  Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
+##  3rd Qu.: 0.7571   3rd Qu.: 0.5389   3rd Qu.: 0.7711   3rd Qu.: 0.7853  
+##  Max.   : 2.4569   Max.   : 3.1109   Max.   : 1.7974   Max.   : 1.7045</code></pre>
+<pre class="r"><code>featurePlot(x = train_data.pre,
+            y = train_labels,
+            plot = &quot;pairs&quot;,
+            ## Add a key at the top
+            auto.key = list(columns = 3))</code></pre>
+<p><img src="/post/2015-02-19-caret-streamline-the-process-of-predictive-modeling_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code># train the model
+
+# resampling methods / counts
+train_control &lt;- trainControl(method = &quot;repeatedcv&quot;, # type of resampling
+                              number = 10,           # number of folds
+                              repeats = 2)           # repeats of whole process
+
+# train a random forest
+train_model.rf &lt;- train(x=train_data.pre,      # data
+                     y=train_labels,           # labels
+                     method=&quot;rf&quot;,              # classification method
+                     trControl=train_control,  # train control
+                     metric=&quot;Accuracy&quot;,        # metric to determine best model
+                     tuneLength=3)             # how many tuning parameters to try
+
+train_model.rf</code></pre>
+<pre><code>## Random Forest 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 2 times) 
+## Summary of sample sizes: 94, 94, 94, 95, 94, 95, ... 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy   Kappa    
+##   2     0.9510859  0.9262311
+##   3     0.9465404  0.9196066
+##   4     0.9465404  0.9196066
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was mtry = 2.</code></pre>
+<pre class="r"><code>names(train_model.rf)</code></pre>
+<pre><code>##  [1] &quot;method&quot;       &quot;modelInfo&quot;    &quot;modelType&quot;    &quot;results&quot;     
+##  [5] &quot;pred&quot;         &quot;bestTune&quot;     &quot;call&quot;         &quot;dots&quot;        
+##  [9] &quot;metric&quot;       &quot;control&quot;      &quot;finalModel&quot;   &quot;preProcess&quot;  
+## [13] &quot;trainingData&quot; &quot;resample&quot;     &quot;resampledCM&quot;  &quot;perfNames&quot;   
+## [17] &quot;maximize&quot;     &quot;yLimits&quot;      &quot;times&quot;        &quot;levels&quot;</code></pre>
+<pre class="r"><code># train penalized logistic regression
+train_model.plr &lt;- train(x=train_data.pre,
+                     y=train_labels,
+                     method=&quot;plr&quot;,
+                     trControl=train_control,
+                     metric=&quot;Accuracy&quot;,
+                     tuneLength=3)
+
+train_model.plr</code></pre>
+<pre><code>## Penalized Logistic Regression 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 2 times) 
+## Summary of sample sizes: 94, 94, 95, 95, 95, 94, ... 
+## Resampling results across tuning parameters:
+## 
+##   lambda  Accuracy   Kappa    
+##   0e+00   0.6660606  0.4997727
+##   1e-04   0.6660606  0.4997727
+##   1e-01   0.6660606  0.4997727
+## 
+## Tuning parameter &#39;cp&#39; was held constant at a value of bic
+## Accuracy was used to select the optimal model using the largest value.
+## The final values used for the model were lambda = 0.1 and cp = bic.</code></pre>
+<pre class="r"><code># results of the &quot;best&quot; model
+train_model.rf$finalModel</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(x = x, y = y, mtry = param$mtry) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 4.76%
+## Confusion matrix:
+##            setosa versicolor virginica class.error
+## setosa         35          0         0  0.00000000
+## versicolor      0         33         2  0.05714286
+## virginica       0          3        32  0.08571429</code></pre>
+<pre class="r"><code>train_model.plr$finalModel</code></pre>
+<pre><code>## 
+## Call:
+## stepPlr::plr(x = x, y = y, weights = if (!is.null(wts)) wts else rep(1, 
+##     length(y)), lambda = param$lambda, cp = as.character(param$cp))
+## 
+## Coefficients:
+##    Intercept Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+##     -3.24506     -1.32064      1.45670     -2.41441     -2.13541 
+## 
+##     Null deviance: 133.67 on 104 degrees of freedom
+## Residual deviance: 1.42 on 102.18 degrees of freedom
+##             Score: deviance + 4.7 * df = 14.53</code></pre>
+<pre class="r"><code># dive into the final model
+class(train_model.rf$finalModel)</code></pre>
+<pre><code>## [1] &quot;randomForest&quot;</code></pre>
+<pre class="r"><code>names(train_model.rf$finalModel)</code></pre>
+<pre><code>##  [1] &quot;call&quot;            &quot;type&quot;            &quot;predicted&quot;      
+##  [4] &quot;err.rate&quot;        &quot;confusion&quot;       &quot;votes&quot;          
+##  [7] &quot;oob.times&quot;       &quot;classes&quot;         &quot;importance&quot;     
+## [10] &quot;importanceSD&quot;    &quot;localImportance&quot; &quot;proximity&quot;      
+## [13] &quot;ntree&quot;           &quot;mtry&quot;            &quot;forest&quot;         
+## [16] &quot;y&quot;               &quot;test&quot;            &quot;inbag&quot;          
+## [19] &quot;xNames&quot;          &quot;problemType&quot;     &quot;tuneValue&quot;      
+## [22] &quot;obsLevels&quot;       &quot;param&quot;</code></pre>
+<pre class="r"><code>plot(train_model.rf$finalModel)</code></pre>
+<p><img src="/post/2015-02-19-caret-streamline-the-process-of-predictive-modeling_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code>class(train_model.plr$finalModel)</code></pre>
+<pre><code>## [1] &quot;plr&quot;</code></pre>
+<pre class="r"><code>names(train_model.plr$finalModel)</code></pre>
+<pre><code>##  [1] &quot;coefficients&quot;      &quot;covariance&quot;        &quot;deviance&quot;         
+##  [4] &quot;null.deviance&quot;     &quot;df&quot;                &quot;score&quot;            
+##  [7] &quot;nobs&quot;              &quot;cp&quot;                &quot;fitted.values&quot;    
+## [10] &quot;linear.predictors&quot; &quot;level&quot;             &quot;call&quot;             
+## [13] &quot;xNames&quot;            &quot;problemType&quot;       &quot;tuneValue&quot;        
+## [16] &quot;obsLevels&quot;         &quot;param&quot;</code></pre>
+<pre class="r"><code># apply to test data
+results.rf &lt;- predict(train_model.rf, test_data.pre)
+results.plr &lt;- predict(train_model.plr, test_data.pre)
+
+# side by side results
+View(data.frame(test_labels,
+           results.rf,
+           results.plr))
+
+# stats for the results
+confusionMatrix(data=results.rf,
+                reference=test_labels)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         15          0         0
+##   versicolor      0         13         1
+##   virginica       0          2        14
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.9333         
+##                  95% CI : (0.8173, 0.986)
+##     No Information Rate : 0.3333         
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
+##                                          
+##                   Kappa : 0.9            
+##  Mcnemar&#39;s Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.8667           0.9333
+## Specificity                 1.0000            0.9667           0.9333
+## Pos Pred Value              1.0000            0.9286           0.8750
+## Neg Pred Value              1.0000            0.9355           0.9655
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.2889           0.3111
+## Detection Prevalence        0.3333            0.3111           0.3556
+## Balanced Accuracy           1.0000            0.9167           0.9333</code></pre>
+<pre class="r"><code>confusionMatrix(data=results.plr,
+                reference=test_labels)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         15          0         0
+##   versicolor      0         15        15
+##   virginica       0          0         0
+## 
+## Overall Statistics
+##                                        
+##                Accuracy : 0.6667       
+##                  95% CI : (0.5105, 0.8)
+##     No Information Rate : 0.3333       
+##     P-Value [Acc &gt; NIR] : 5.001e-06    
+##                                        
+##                   Kappa : 0.5          
+##  Mcnemar&#39;s Test P-Value : NA           
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            1.0000           0.0000
+## Specificity                 1.0000            0.5000           1.0000
+## Pos Pred Value              1.0000            0.5000              NaN
+## Neg Pred Value              1.0000            1.0000           0.6667
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3333           0.0000
+## Detection Prevalence        0.3333            0.6667           0.0000
+## Balanced Accuracy           1.0000            0.7500           0.5000</code></pre>
+<pre class="r"><code># variable importance
+varImp(train_model.rf)</code></pre>
+<pre><code>## rf variable importance
+## 
+##              Overall
+## Petal.Width   100.00
+## Petal.Length   89.18
+## Sepal.Length   13.90
+## Sepal.Width     0.00</code></pre>
+<pre class="r"><code>train_model.rf$finalModel$importance</code></pre>
+<pre><code>##              MeanDecreaseGini
+## Sepal.Length         6.457729
+## Sepal.Width          2.358824
+## Petal.Length        28.651485
+## Petal.Width         31.840657</code></pre>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/web-scraping/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/web-scraping/">Web Scraping</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/heat-maps/">Heat Maps</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/heat-maps/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Your Google Analytics tracking ID', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>
+

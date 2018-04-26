@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xml on Cville R users</title>
+    <link>/tags/xml/</link>
+    <description>Recent content in Xml on Cville R users</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018. All rights reserved.</copyright>
+    <lastBuildDate>Tue, 07 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/xml/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web Scraping</title>
+      <link>/post/web-scraping/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/web-scraping/</guid>
+      <description>Web Scraping Take data formatted for display in a web browser and reformat for analysis.
+It helps to know…
+ a little about HTML and XML how to manipulate strings in R a little something about regular expressions how to write a function and do some basic conditional looping  Web scraping is mostly cleaning data.
+ Strategy Every web page is different, but a basic procedure in R (for a single web page) is as follows:</description>
+    </item>
+    
+  </channel>
+</rss>

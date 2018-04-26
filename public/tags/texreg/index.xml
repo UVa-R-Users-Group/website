@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Texreg on Cville R users</title>
+    <link>/tags/texreg/</link>
+    <description>Recent content in Texreg on Cville R users</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 25 Apr 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/texreg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>texreg: converting model output to Latex or HTML</title>
+      <link>/post/texreg-converting-model-output-to-latex-or-html/</link>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/texreg-converting-model-output-to-latex-or-html/</guid>
+      <description>In the first example we use college admissions data to model gpa as a function of class rank, act score and year of admission. Three linear models are fit and summarized in a single table using the texreg functions screenreg, texreg and htmlreg. These functions create nicely formatted tables for the R console, LaTeX, and HTML, respectively. The second example uses NRC Data on research-doctorate programs to do beta regressions of PhD completion rates on Faculty Publications, Citation Rate, Faculty Grants and Institution type.</description>
+    </item>
+    
+  </channel>
+</rss>
