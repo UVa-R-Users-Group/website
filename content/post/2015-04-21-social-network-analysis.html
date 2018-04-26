@@ -1,0 +1,219 @@
+---
+title: Social Network Analysis
+author: Yun Tai
+date: '2015-04-21'
+slug: social-network-analysis
+categories:
+  - social media
+tags:
+  - network
+  - sna
+---
+
+
+
+<p>This script, presented at the April 2015 Meetup, demonstrates how to carry out basic social network analysis (SNA) using the network and sna packages. Topics covered include preparing data for analysis, interpreting output, and generating social network graphs.</p>
+<p>The script assumes no prior knowledge of SNA but does assume a basic working knowledge of R. Most code is commented with an explanation of its purpose.</p>
+<p>After this demonstration, hopefully Meetup participants will have an understanding of how to begin and carry out a basic social network analysis in R.</p>
+<pre class="r"><code># ---------------------------------
+# work with network/relational data 
+# ---------------------------------
+
+# Read in your data ------------------------------------------------
+
+setwd(&#39;C:/Users/yt3f/ytai/Rusersgroup&#39;)   
+
+# We will use &quot;gotRel.csv&quot; here. Let&#39;s first take a look of the original file.
+
+# Import an adjacency matrix using read.csv() function. 
+gotdf &lt;- read.csv(file=&#39;gotRel.csv&#39;,header=TRUE,row.names=1,stringsAsFactors=FALSE)
+gotdf     # header=T and row.names=1 help to make it as a 10 by 10 matrix
+gotmat &lt;- as.matrix(gotdf)  # convert it to a matrix form
+
+
+# The &quot;Network&quot; package: &quot;network&quot; objects -------------------------------------------
+
+# A network object is a R object that can store both relational data and its metadata. 
+# Here we use the &quot;network&quot; package to construct, describe, manipulate, and plot network objects.    
+
+#install.packages(&#39;network&#39;)   
+library(network)              
+
+# Using as.network.matrix() to convert the matrix (gotmat) into a network object, 
+# which is undirected and carries edge values named &quot;weight&quot;
+gotmat
+gotnet &lt;- as.network.matrix(gotmat,directed=FALSE,ignore.eval=FALSE,names.eval=&quot;weight&quot;)
+gotnet                     # quick description of the network 
+summary(gotnet)            # more info of the network           
+network.edgecount(gotnet)  # how many edges in the network  
+network.size(gotnet)             # how many nodes in the network
+
+plot(gotnet)  # a quick plot of the network
+plot(gotnet,displaylabels=TRUE)  # put on node names 
+
+# In case you like to add or delete edges:
+network.vertex.names(gotnet)     # list the nodes
+gotnet[2,3]       # are Cersei and Ned connected? 
+gotnet[2:3,4:7]     # subset of row 2 to 3. column 4 to 7
+gotnet[-10,-10]     # if you want to kill Sansa (from the graph, of course...)
+
+gotnet[2,]              # all of Cersei&#39;s ties, i.e., extract the Cersei row
+# note that this doesn&#39;t display edge values
+gotmat[2,]
+as.sociomatrix(gotnet,attrname=&quot;weight&quot;)  # retrieving edge values in a matrix form
+as.sociomatrix(gotnet)  # the default gives you a dichotomous one
+gotnet[,]  # the other way to do it
+
+# plot the network with presenting edge values by line width
+plot(gotnet,displaylabels=TRUE,edge.lwd=&quot;weight&quot;)
+
+
+# Network and node attributes --------------------------------------------
+
+# Let&#39;s take a look of the node attributes file 
+
+# import nodes attributes data
+gotatt &lt;- read.csv(file=&#39;gotAttri.csv&#39;,header=TRUE,stringsAsFactors=FALSE)
+gotatt
+
+# load the node atrributes into the network object, i.e., gotnet
+gotnet %v% &quot;id&quot; &lt;- gotatt$ID
+gotnet %v% &quot;name&quot; &lt;- gotatt$NAME
+gotnet %v% &quot;sex&quot; &lt;- gotatt$SEX
+gotnet %v% &quot;family&quot; &lt;- gotatt$FAMILY
+gotnet %v% &quot;status&quot; &lt;- gotatt$STATUS  
+gotnet %v% &quot;appear&quot; &lt;- gotatt$APPEAR
+
+gotnet
+list.vertex.attributes(gotnet)  # list node atrribute names
+gotnet %v% &quot;name&quot;  # retrieve the &quot;name&quot; attribute
+
+
+# ---------------------------
+# Some Basic Network Analysis 
+# ---------------------------
+
+# use a build-in dataset
+data(package=&quot;network&quot;)  # datasets come with the network package
+?flo
+data(flo)       # load the &quot;flo&quot; dataset
+flo         # take a look of it
+is.matrix(flo)
+
+#install.packages(&#39;sna&#39;)
+library(sna)  
+
+# The &quot;sna&quot; package can handle many forms of network data, e.g., network object, adjacency matix, 
+# or a list of adjacency matrices. In other words, functions of this package can be used on 
+# various forms of data. We&#39;ll work with edgelist in the following example.
+
+floel &lt;- as.edgelist.sna(flo)  # convert the flo matrix into a sna edgelist 
+head(floel)
+attr(floel,&quot;n&quot;)                # how many nodes?
+attr(floel,&quot;vnames&quot;)           # node names
+as.sociomatrix.sna(floel)      # convert it to a sna matrix
+
+
+# Measure centrality ---------------------------------------
+
+data(emon)  # load the &quot;emon&quot; dataset
+?emon       # it contains 7 network objects
+emon.tx &lt;- emon$Texas  # we&#39;ll only use the Texas one here
+emon.tx     # a directed network
+
+# degree cnetrality
+degree(emon.tx)  # total degree of each node
+degree(flo)      # works for a matrix object as well
+indg &lt;- degree(emon.tx, cmode=&quot;indegree&quot;)  # in-degree
+indg
+oudg &lt;- degree(emon.tx, cmode=&quot;outdegree&quot;) # out-degree
+oudg
+
+# plot in-degree by out-degree
+plot(x=indg,y=oudg,xlab=&quot;Indegree&quot;,ylab=&quot;Outdegree&quot;)
+
+# Which GOT character is more central than others, in terms of degree centrality?
+gotdg &lt;- degree(gotnet)
+max(gotdg)  # the max value in gotdg
+which(gotdg==12)  # returns the position of the value=12
+network.vertex.names(gotnet)
+
+# betweeness and closeness centrality
+bet &lt;- betweenness(emon.tx)
+bet  # betweenness centrlity of each node
+clo &lt;- closeness(emon.tx)
+clo  # closeness centrlity of each node
+
+# plot the relationship of closeness and betweenness
+plot(x=clo, y=bet, xlab=&quot;Closeness&quot;, ylab=&quot;Betweenness&quot;)
+
+# how about betweenness and closeness in our GOT network
+gotbet &lt;- betweenness(gotnet,gmode=&quot;graph&quot;)  # &quot;digraph&quot; by default
+gotclo &lt;- closeness(gotnet,gmode=&quot;graph&quot;)
+max(gotbet)
+which(gotbet==18)
+max(gotclo)
+which(gotclo==0.75)
+
+
+# --------------------
+# Network Visulization 
+# --------------------
+
+plot(gotnet)  # default plot 
+plot(gotnet, displaylabels=TRUE)  # add labels
+plot(gotnet, displaylabels=TRUE, 
+     vertex.cex=4,        # expansion factor=&gt;node size
+     vertex.border=&quot;red&quot;, # node border color
+     label.cex=0.8,       # label size 
+     label.col=&quot;white&quot;,   # label color
+     label.pos=5)         # label position, here we place labels at the vertex positions
+
+# Of course we want to color the nodes by gender stereotype...
+ncolor &lt;- ifelse(gotatt$SEX==&quot;F&quot;,yes=&quot;lightpink&quot;,no=&quot;lightblue&quot;) 
+ncolor  # a list of color names assigned to each nodes
+plot(gotnet,displaylabels=T,vertex.cex=3,vertex.col=ncolor,label.pos=5)
+
+# or the &quot;status&quot; of them
+ncolor2 &lt;- ifelse(gotatt$STATUS==&quot;alive&quot;,yes=&quot;green&quot;,no=&quot;antiquewhite3&quot;)
+plot(gotnet,displaylabels=T,vertex.cex=3,vertex.col=ncolor2,label.pos=5)
+
+# a directed network
+plot(emon.tx)  
+par(mar=c(0,0,0,0))  # get rid of the large margin; the numerical vector indicating 
+                     # margin size c(bottom, left, top, right) in lines.                      
+plot(emon.tx)
+plot(emon.tx, displaylabels=TRUE)
+
+# try a different layout
+plot(emon.tx, displaylabels=TRUE,
+     vertex.cex=2,
+     label.cex=0.7, 
+     label.col=&quot;midnightblue&quot;, 
+     label.pos=5,
+     mode=&quot;circle&quot;)  # vertex placement algorithm
+?gplot.layout  # more info of layouts
+
+# interactive mode for tweaking
+plot(emon.tx, displaylabels=TRUE,
+     vertex.cex=2,
+     label.cex=0.7, 
+     label.col=&quot;midnightblue&quot;, 
+     label.pos=5,
+     mode=&quot;circle&quot;,
+     interactive=TRUE)  # interactive mode
+
+# save a layout for reuse
+Coords1 &lt;- plot(emon.tx, displaylabels=TRUE,
+                vertex.cex=2,
+                label.cex=0.7, 
+                label.col=&quot;midnightblue&quot;, 
+                label.pos=5,
+                mode=&quot;circle&quot;,
+                interactive=TRUE)
+head(Coords1)  # the nodes coordinates 
+plot(emon.tx)
+plot(emon.tx, coord=Coords1)  # apply a saved layout
+
+# more info of graph plotting
+?gplot</code></pre>

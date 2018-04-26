@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nmf on Cville R users</title>
+    <link>/tags/nmf/</link>
+    <description>Recent content in Nmf on Cville R users</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018. All rights reserved.</copyright>
+    <lastBuildDate>Thu, 19 Feb 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/nmf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Heat Maps</title>
+      <link>/post/heat-maps/</link>
+      <pubDate>Thu, 19 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/heat-maps/</guid>
+      <description>library(dplyr) # Data manipulation &amp;amp; magrittr pipe library(ggplot2) # General plotting library(NMF) # aheatmap() library(gplots) # heatmap.2() library(RColorBrewer) # Brewer palettes set.seed(123) ############################ # 2D histograms # ############################ # simulate data that consiststs of paired observations in two experiments covar_mat &amp;lt;- matrix(c(5, 4, 4, 5), ncol = 2) # Covariance matrix data &amp;lt;- MASS::mvrnorm(n = 10000, mu = c(0, 0), Sigma = covar_mat) %&amp;gt;% #Simulate correlated data rbind(matrix(rnorm(20000, sd = 0.</description>
+    </item>
+    
+  </channel>
+</rss>
