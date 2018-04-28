@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/linear-models-in-r/</loc>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/projects/</loc>
     <lastmod>2018-04-12T15:48:05-04:00</lastmod>
   </url>
@@ -48,8 +53,14 @@
   </url>
   
   <url>
+    <loc>/tags/broom/</loc>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2018-04-12T15:48:05-04:00</lastmod>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -62,6 +73,12 @@
   <url>
     <loc>/tags/ggplot2/</loc>
     <lastmod>2015-02-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/glht/</loc>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -91,7 +108,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2015-04-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -108,6 +125,12 @@
   </url>
   
   <url>
+    <loc>/tags/stats/</loc>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/stringr/</loc>
     <lastmod>2014-10-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -115,7 +138,7 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2015-02-19T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
